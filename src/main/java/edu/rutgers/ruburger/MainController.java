@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 /**
  * Controls the main menu of the RU Burger application.
  *
- * @author Kayvon Yazdani
+ * @author Kayvon Yazdani, Timothy Creelman
  */
 public class MainController {
 
@@ -45,7 +45,6 @@ public class MainController {
 
         } catch (Exception exception) {
 
-            exception.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("RU Burger");
             alert.setHeaderText("Unable to open Burger Ordering");
@@ -56,27 +55,36 @@ public class MainController {
 
 
     /**
-     * Handles the sandwich ordering button.
+     * Opens the sandwich ordering screen.
+     *
+     * @param event the button click
      */
     @FXML
-    private void orderSandwich() {
-        showComingSoon("Sandwich Ordering");
+    private void orderSandwich(javafx.event.ActionEvent event) {
+        ViewUtil.switchScene(event, "sandwich-view.fxml",
+                "RU Burger - Sandwich Ordering");
     }
 
     /**
-     * Handles the beverage ordering button.
+     * Opens the beverage ordering screen.
+     *
+     * @param event the button click
      */
     @FXML
-    private void orderBeverage() {
-        showComingSoon("Beverage Ordering");
+    private void orderBeverage(javafx.event.ActionEvent event) {
+        ViewUtil.switchScene(event, "beverage-view.fxml",
+                "RU Burger - Beverage Ordering");
     }
 
     /**
-     * Handles the side ordering button.
+     * Opens the side ordering screen.
+     *
+     * @param event the button click
      */
     @FXML
-    private void orderSide() {
-        showComingSoon("Side Ordering");
+    private void orderSide(javafx.event.ActionEvent event) {
+        ViewUtil.switchScene(event, "side-view.fxml",
+                "RU Burger - Side Ordering");
     }
 
 

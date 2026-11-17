@@ -12,7 +12,7 @@ import java.util.Locale;
 /**
  * Controls the current order page.
  *
- * @author Kayvon Yazdani
+ * @author Kayvon Yazdani, Timothy Creelman
  */
 public class CurrentOrderController {
 
