@@ -127,11 +127,14 @@ public class MainController {
 
 
     /**
-     * Handles the placed orders button.
+     * Opens the placed orders page.
+     *
+     * @param event the button action
      */
     @FXML
-    private void viewOrders() {
-        showComingSoon("Placed Orders");
+    private void viewOrders(javafx.event.ActionEvent event) {
+        ViewUtil.switchScene(event, "placed-orders-view.fxml",
+                "RU Burger - Placed Orders");
     }
 
     /**

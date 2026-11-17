@@ -110,6 +110,17 @@ public final class ViewUtil {
     }
 
     /**
+     * Describes the side and drink of a combo in one line.
+     *
+     * @param side the combo side
+     * @param drink the combo drink
+     * @return text such as "Small Chips + Medium Cola"
+     */
+    public static String comboSummary(SideType side, Flavor drink) {
+        return "Small " + pretty(side) + " + Medium " + pretty(drink);
+    }
+
+    /**
      * Converts an enum constant to readable text,
      * for example ICED_TEA becomes "Iced Tea".
      *

@@ -132,8 +132,9 @@ public class SideController {
      */
     @FXML
     private void highlightButton(MouseEvent event) {
-        ((Button) event.getSource()).setStyle(
-                "-fx-background-color: #8B0000; -fx-text-fill: white;");
+        Button button = (Button) event.getSource();
+        button.getStyleClass().remove("button-hover");
+        button.getStyleClass().add("button-hover");
     }
 
     /**
@@ -143,6 +144,7 @@ public class SideController {
      */
     @FXML
     private void resetButton(MouseEvent event) {
-        ((Button) event.getSource()).setStyle("");
+        ((Button) event.getSource()).getStyleClass()
+                .remove("button-hover");
     }
 }

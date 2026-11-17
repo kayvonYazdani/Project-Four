@@ -2,14 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <ScrollPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="edu.rutgers.ruburger.BurgerController"
+      stylesheets="@styles.css"
             fitToWidth="true">
 
     <VBox alignment="TOP_CENTER" spacing="18"
-          style="-fx-background-color: #FFF8F0;">
+          styleClass="root-pane">
 
         <padding>
             <Insets top="25" right="40"
@@ -17,18 +19,19 @@
         </padding>
 
         <Label text="BUILD YOUR BURGER"
-               style="-fx-font-size: 30px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #8B0000;"/>
+               styleClass="title-label"/>
+
+        <ImageView fx:id="itemImage" fitWidth="220" fitHeight="150"
+                   preserveRatio="true"/>
 
         <Label text="Choose your bread"
-               style="-fx-font-size: 17px;"/>
+               styleClass="section-label"/>
 
         <ComboBox fx:id="breadBox"
                   prefWidth="260"/>
 
         <Label text="Patty selection"
-               style="-fx-font-size: 17px;"/>
+               styleClass="section-label"/>
 
         <HBox alignment="CENTER" spacing="25">
             <RadioButton fx:id="singlePatty"
@@ -40,7 +43,7 @@
         </HBox>
 
         <Label text="Add-ons"
-               style="-fx-font-size: 17px;"/>
+               styleClass="section-label"/>
 
         <HBox alignment="CENTER" spacing="15">
             <CheckBox fx:id="lettuce"
@@ -68,19 +71,10 @@
                   onAction="#updatePrice"/>
 
         <HBox alignment="CENTER" spacing="15">
-            <VBox alignment="CENTER" spacing="5">
-                <Label text="Combo side"/>
-                <ComboBox fx:id="comboSideBox"
-                          prefWidth="150"
-                          onAction="#updateComboSelection"/>
-            </VBox>
-
-            <VBox alignment="CENTER" spacing="5">
-                <Label text="Combo drink"/>
-                <ComboBox fx:id="comboDrinkBox"
-                          prefWidth="150"
-                          onAction="#updateComboSelection"/>
-            </VBox>
+            <Label fx:id="comboSummaryLabel" text="Small Chips + Medium Cola"
+                   styleClass="section-label"/>
+            <Button fx:id="comboButton" text="Choose Side &amp; Drink"
+                    onAction="#chooseCombo"/>
         </HBox>
 
         <Label text="Quantity"/>
@@ -89,23 +83,20 @@
                  editable="false"/>
 
         <Label text="Total Price"
-               style="-fx-font-size: 18px;"/>
+               styleClass="section-label"/>
 
         <Label fx:id="priceLabel"
                text="6.99"
                minWidth="180"
                alignment="CENTER"
-               style="-fx-font-family: 'Arial';
-              -fx-font-size: 28px;
-              -fx-font-weight: bold;
-              -fx-text-fill: #8B0000;"/>
+               styleClass="price-label"/>
 
         <HBox alignment="CENTER" spacing="20">
             <Button text="Back"
                     prefWidth="140"
                     onAction="#goBack"/>
 
-            <Button fx:id="addButton"
+            <Button fx:id="addButton" styleClass="primary-button"
                     text="Add to Order"
                     prefWidth="180"
                     onAction="#addToOrder"/>

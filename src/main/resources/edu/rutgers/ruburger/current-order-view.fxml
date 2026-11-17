@@ -6,11 +6,12 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="edu.rutgers.ruburger.CurrentOrderController"
+      stylesheets="@styles.css"
       alignment="TOP_CENTER"
       spacing="16"
       prefWidth="850"
       prefHeight="650"
-      style="-fx-background-color: #FFF8F0;">
+      styleClass="root-pane">
 
     <padding>
         <Insets top="25" right="35"
@@ -18,16 +19,14 @@
     </padding>
 
     <Label text="CURRENT ORDER"
-           style="-fx-font-size: 30px;
-                  -fx-font-weight: bold;
-                  -fx-text-fill: #8B0000;"/>
+           styleClass="title-label"/>
 
     <Label fx:id="orderNumberLabel"
            text="Order #1"
-           style="-fx-font-size: 17px;"/>
+           styleClass="section-label"/>
 
     <Label text="Items in your order"
-           style="-fx-font-size: 16px;"/>
+           styleClass="section-label"/>
 
     <ListView fx:id="orderListView"
               prefHeight="290"
@@ -69,16 +68,13 @@
                GridPane.columnIndex="1"/>
 
         <Label text="Order Total:"
-               style="-fx-font-weight: bold;
-                      -fx-font-size: 19px;"
+               styleClass="total-caption"
                GridPane.rowIndex="2"
                GridPane.columnIndex="0"/>
 
         <Label fx:id="totalLabel"
                text="0.00"
-               style="-fx-font-weight: bold;
-                      -fx-font-size: 23px;
-                      -fx-text-fill: #8B0000;"
+               styleClass="total-label"
                GridPane.rowIndex="2"
                GridPane.columnIndex="1"/>
     </GridPane>
@@ -92,9 +88,7 @@
                 text="Place Order"
                 prefWidth="160"
                 onAction="#placeOrder"
-                style="-fx-background-color: #8B0000;
-                       -fx-text-fill: white;
-                       -fx-font-weight: bold;"/>
+                styleClass="primary-button"/>
     </HBox>
 
 </VBox>

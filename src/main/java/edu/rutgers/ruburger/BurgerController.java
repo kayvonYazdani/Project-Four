@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Locale;
@@ -25,10 +26,14 @@ public class BurgerController {
     @FXML private CheckBox avocado;
     @FXML private CheckBox cheese;
     @FXML private CheckBox combo;
-    @FXML private ComboBox<String> comboSideBox;
-    @FXML private ComboBox<String> comboDrinkBox;
     @FXML private Spinner<Integer> quantitySpinner;
     @FXML private Label priceLabel;
+    @FXML private ImageView itemImage;
+    @FXML private Label comboSummaryLabel;
+    @FXML private Button comboButton;
+
+    private SideType comboSide = SideType.CHIPS;
+    private Flavor comboDrink = Flavor.COLA;
 
 
     /**
@@ -45,14 +50,6 @@ public class BurgerController {
         singlePatty.setToggleGroup(pattyGroup);
         doublePatty.setToggleGroup(pattyGroup);
         singlePatty.setSelected(true);
-        comboSideBox.getItems().addAll(
-                "Chips", "Apple Slices"
-        );
-        comboSideBox.getSelectionModel().selectFirst();
-        comboDrinkBox.getItems().addAll(
-                "Cola", "Tea", "Juice"
-        );
-        comboDrinkBox.getSelectionModel().selectFirst();
         quantitySpinner.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
                         1, 99, 1
@@ -63,12 +60,13 @@ public class BurgerController {
                 (observable, oldValue, newValue) -> updatePrice()
         );
 
-        comboSideBox.setDisable(true);
-        comboDrinkBox.setDisable(true);
+        comboButton.setDisable(true);
+        updateComboSummary();
         breadBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> updatePrice()
         );
 
+        itemImage.setImage(ViewUtil.loadImage("burger.png"));
         updatePrice();
 
 
@@ -123,21 +121,8 @@ public class BurgerController {
         Burger burger = buildBurger();
         burger.setQuantity(1);
 
-        SideType sideType = switch (comboSideBox.getValue()) {
-            case "Apple Slices" -> SideType.APPLE_SLICES;
-            default -> SideType.CHIPS;
-        };
-
-        Flavor drinkFlavor = switch (comboDrinkBox.getValue()) {
-            case "Tea" -> Flavor.ICED_TEA;
-            case "Juice" -> Flavor.APPLE_JUICE;
-            default -> Flavor.COLA;
-        };
-
-        Side side = new Side(Size.SMALL, sideType);
-        Beverage drink = new Beverage(
-                Size.MEDIUM, drinkFlavor
-        );
+        Side side = new Side(Size.SMALL, comboSide);
+        Beverage drink = new Beverage(Size.MEDIUM, comboDrink);
         Combo newCombo = new Combo(burger, drink, side);
         newCombo.setQuantity(quantitySpinner.getValue());
         return newCombo;
@@ -173,8 +158,7 @@ public class BurgerController {
     private void updatePrice() {
         try {
             boolean isCombo = combo.isSelected();
-            comboSideBox.setDisable(!isCombo);
-            comboDrinkBox.setDisable(!isCombo);
+            comboButton.setDisable(!isCombo);
             MenuItem item;
 
             if (isCombo) {
@@ -280,13 +264,26 @@ public class BurgerController {
     }
 
     /**
-     * Handles combo side and drink selection changes.
-     * Image updates will be connected when the image
-     * resources and ImageView controls are added.
+     * Opens the combo window to choose the combo side and drink.
      */
     @FXML
-    private void updateComboSelection() {
-        updatePrice();
+    private void chooseCombo() {
+        ComboController chosen = ComboController.showDialog(
+                priceLabel.getScene().getWindow(), comboSide, comboDrink);
+        if (chosen != null) {
+            comboSide = chosen.getSide();
+            comboDrink = chosen.getDrink();
+            updateComboSummary();
+            updatePrice();
+        }
+    }
+
+    /**
+     * Shows the chosen combo side and drink as text.
+     */
+    private void updateComboSummary() {
+        comboSummaryLabel.setText(
+                ViewUtil.comboSummary(comboSide, comboDrink));
     }
 
 

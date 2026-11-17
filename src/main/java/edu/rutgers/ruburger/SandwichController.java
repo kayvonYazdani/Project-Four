@@ -28,11 +28,12 @@ public class SandwichController {
     @FXML private CheckBox avocado;
     @FXML private CheckBox cheese;
     @FXML private CheckBox combo;
-    @FXML private ComboBox<SideType> comboSideBox;
-    @FXML private ComboBox<String> comboDrinkBox;
     @FXML private ImageView itemImage;
-    @FXML private ImageView comboSideImage;
-    @FXML private ImageView comboDrinkImage;
+    @FXML private Label comboSummaryLabel;
+    @FXML private Button comboButton;
+
+    private SideType comboSide = SideType.CHIPS;
+    private Flavor comboDrink = Flavor.COLA;
     @FXML private Spinner<Integer> quantitySpinner;
     @FXML private Label priceLabel;
 
@@ -45,11 +46,8 @@ public class SandwichController {
         ViewUtil.fillEnumBox(proteinBox, new Protein[] {
             Protein.ROAST_BEEF, Protein.SALMON, Protein.CHICKEN
         });
-        ViewUtil.fillEnumBox(comboSideBox, new SideType[] {
-            SideType.CHIPS, SideType.APPLE_SLICES
-        });
-        comboDrinkBox.getItems().setAll("Cola", "Tea", "Juice");
-        comboDrinkBox.getSelectionModel().selectFirst();
+        comboButton.setDisable(true);
+        updateComboSummary();
 
         quantitySpinner.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
@@ -100,28 +98,21 @@ public class SandwichController {
             sandwich.setQuantity(quantity);
             return sandwich;
         }
-        Flavor flavor = switch (comboDrinkBox.getValue()) {
-            case "Tea" -> Flavor.ICED_TEA;
-            case "Juice" -> Flavor.APPLE_JUICE;
-            default -> Flavor.COLA;
-        };
-        Side side = new Side(Size.SMALL, comboSideBox.getValue());
-        Beverage drink = new Beverage(Size.MEDIUM, flavor);
+        Side side = new Side(Size.SMALL, comboSide);
+        Beverage drink = new Beverage(Size.MEDIUM, comboDrink);
         Combo newCombo = new Combo(sandwich, drink, side);
         newCombo.setQuantity(quantity);
         return newCombo;
     }
 
     /**
-     * Updates the running price and the combo images.
+     * Updates the running price and the combo button.
      */
     @FXML
     private void updatePrice() {
         try {
             boolean isCombo = combo.isSelected();
-            comboSideBox.setDisable(!isCombo);
-            comboDrinkBox.setDisable(!isCombo);
-            updateComboImages();
+            comboButton.setDisable(!isCombo);
             priceLabel.setText(String.format(
                     Locale.US, "$%.2f", buildItem().price()));
         } catch (RuntimeException exception) {
@@ -130,20 +121,26 @@ public class SandwichController {
     }
 
     /**
-     * Changes the side and drink pictures to match the selections.
+     * Opens the combo window to choose the combo side and drink.
      */
-    private void updateComboImages() {
-        SideType side = comboSideBox.getValue();
-        String drink = comboDrinkBox.getValue();
-        if (side != null) {
-            comboSideImage.setImage(ViewUtil.loadImage(
-                    side == SideType.CHIPS ? "chips.png"
-                            : "apple_slices.png"));
+    @FXML
+    private void chooseCombo() {
+        ComboController chosen = ComboController.showDialog(
+                priceLabel.getScene().getWindow(), comboSide, comboDrink);
+        if (chosen != null) {
+            comboSide = chosen.getSide();
+            comboDrink = chosen.getDrink();
+            updateComboSummary();
+            updatePrice();
         }
-        if (drink != null) {
-            comboDrinkImage.setImage(ViewUtil.loadImage(
-                    drink.toLowerCase(Locale.US) + ".png"));
-        }
+    }
+
+    /**
+     * Shows the chosen combo side and drink as text.
+     */
+    private void updateComboSummary() {
+        comboSummaryLabel.setText(
+                ViewUtil.comboSummary(comboSide, comboDrink));
     }
 
     /**
@@ -186,8 +183,9 @@ public class SandwichController {
      */
     @FXML
     private void highlightButton(MouseEvent event) {
-        ((Button) event.getSource()).setStyle(
-                "-fx-background-color: #8B0000; -fx-text-fill: white;");
+        Button button = (Button) event.getSource();
+        button.getStyleClass().remove("button-hover");
+        button.getStyleClass().add("button-hover");
     }
 
     /**
@@ -197,6 +195,7 @@ public class SandwichController {
      */
     @FXML
     private void resetButton(MouseEvent event) {
-        ((Button) event.getSource()).setStyle("");
+        ((Button) event.getSource()).getStyleClass()
+                .remove("button-hover");
     }
 }

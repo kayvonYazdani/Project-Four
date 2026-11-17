@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="edu.rutgers.ruburger.PlacedOrdersController"
+      stylesheets="@styles.css"
+      alignment="TOP_CENTER" spacing="14"
+      styleClass="root-pane">
+
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30"/>
+    </padding>
+
+    <Label text="PLACED ORDERS"
+           styleClass="title-label"/>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <VBox spacing="6" prefWidth="260">
+            <Label text="Orders" styleClass="section-label"/>
+            <ListView fx:id="orderListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Items in selected order"
+                   styleClass="section-label"/>
+            <ListView fx:id="itemListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="40">
+        <Label fx:id="subtotalLabel" text="Subtotal: 0.00"
+               styleClass="section-label"/>
+        <Label fx:id="taxLabel" text="Sales Tax: 0.00"
+               styleClass="section-label"/>
+        <Label fx:id="totalLabel" text="Order Total: 0.00"
+               styleClass="total-label"/>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="20">
+        <Button text="Back" prefWidth="140" onAction="#goBack"
+                onMouseEntered="#highlightButton"
+                onMouseExited="#resetButton"/>
+        <Button fx:id="cancelButton" text="Cancel Order" prefWidth="160"
+                onAction="#cancelOrder"
+                onMouseEntered="#highlightButton"
+                onMouseExited="#resetButton"/>
+        <Button fx:id="exportButton" text="Export Orders" prefWidth="160"
+                onAction="#exportOrders"
+                onMouseEntered="#highlightButton"
+                onMouseExited="#resetButton"/>
+    </HBox>
+</VBox>

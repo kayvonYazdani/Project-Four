@@ -3,56 +3,102 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="edu.rutgers.ruburger.MainController"
+      stylesheets="@styles.css"
       alignment="CENTER"
-      spacing="15"
-      style="-fx-background-color: #FFF8F0;">
+      spacing="12"
+      styleClass="root-pane">
 
     <padding>
-        <Insets top="30" right="30"
-                bottom="30" left="30"/>
+        <Insets top="20" right="30"
+                bottom="20" left="30"/>
     </padding>
 
-    <Label text="RU BURGER"
-           style="-fx-font-size: 36px;
-                  -fx-font-weight: bold;
-                  -fx-text-fill: #8B0000;"/>
+    <Label text="RU BURGER" styleClass="main-title-label"/>
 
-    <Label text="Restaurant Ordering System"
-           style="-fx-font-size: 18px;
-                  -fx-text-fill: #555555;"/>
+    <Label text="Restaurant Ordering System" styleClass="subtitle-label"/>
 
-    <Button text="Order Burger"
-            onAction="#orderBurger"
-            prefWidth="250"
-            prefHeight="45"/>
+    <Button text="Order Burger" onAction="#orderBurger"
+            styleClass="menu-button"
+            prefWidth="280" prefHeight="50"
+            contentDisplay="LEFT" graphicTextGap="14">
+        <graphic>
+            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                <image>
+                    <Image url="@images/icon_burger.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button text="Order Sandwich"
-            onAction="#orderSandwich"
-            prefWidth="250"
-            prefHeight="45"/>
+    <Button text="Order Sandwich" onAction="#orderSandwich"
+            styleClass="menu-button"
+            prefWidth="280" prefHeight="50"
+            contentDisplay="LEFT" graphicTextGap="14">
+        <graphic>
+            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                <image>
+                    <Image url="@images/icon_sandwich.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button text="Order Beverage"
-            onAction="#orderBeverage"
-            prefWidth="250"
-            prefHeight="45"/>
+    <Button text="Order Beverage" onAction="#orderBeverage"
+            styleClass="menu-button"
+            prefWidth="280" prefHeight="50"
+            contentDisplay="LEFT" graphicTextGap="14">
+        <graphic>
+            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                <image>
+                    <Image url="@images/icon_beverage.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button text="Order Side"
-            onAction="#orderSide"
-            prefWidth="250"
-            prefHeight="45"/>
+    <Button text="Order Side" onAction="#orderSide"
+            styleClass="menu-button"
+            prefWidth="280" prefHeight="50"
+            contentDisplay="LEFT" graphicTextGap="14">
+        <graphic>
+            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                <image>
+                    <Image url="@images/icon_side.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button text="Current Order"
-            onAction="#viewOrder"
-            prefWidth="250"
-            prefHeight="45"/>
+    <Button text="Current Order" onAction="#viewOrder"
+            styleClass="menu-button"
+            prefWidth="280" prefHeight="50"
+            contentDisplay="LEFT" graphicTextGap="14">
+        <graphic>
+            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                <image>
+                    <Image url="@images/icon_order.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button text="Placed Orders"
-            onAction="#viewOrders"
-            prefWidth="250"
-            prefHeight="45"/>
+    <Button text="Placed Orders" onAction="#viewOrders"
+            styleClass="menu-button"
+            prefWidth="280" prefHeight="50"
+            contentDisplay="LEFT" graphicTextGap="14">
+        <graphic>
+            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                <image>
+                    <Image url="@images/icon_orders.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
 </VBox>
